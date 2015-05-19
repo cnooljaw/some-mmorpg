@@ -3,7 +3,7 @@ using UniLua;
 
 namespace Spynet
 {
-    class SpynetLuaService
+	class SpynetLuaService : SpynetService
     {
     	private ILuaState mLuaState;
 
@@ -12,5 +12,9 @@ namespace Spynet
     		mLuaState = LuaAPI.NewState();
 			mLuaState.L_OpenLibs();
     	}
+
+		public SpynetLuaService (string file)
+		{
+		}
     }
 }
