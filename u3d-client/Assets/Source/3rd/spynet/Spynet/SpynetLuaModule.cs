@@ -7,23 +7,28 @@ namespace Spynet
     {
     	private ILuaState mLuaState;
 
-        string Name ()
+        public string Name ()
         {
             return "snlua";
         }
 
-        public void Create ()
+		public object Create ()
         {
-            mLuaState = LuaAPI.NewState ();
-            mLuaState.L_OpenLibs ();
+			SpynetLuaModule instance = new SpynetLuaModule ();
+
+			instance.mLuaState = LuaAPI.NewState ();
+			instance.mLuaState.L_OpenLibs ();
+
+			return instance;
         }
 
         public void Destroy ()
         {
         }
 
-        public void Init ()
+		public bool Init (object instance, SpynetService service, string arg)
         {
+			return true;
         }
 
     }

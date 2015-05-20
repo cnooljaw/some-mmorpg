@@ -2,7 +2,13 @@
 
 namespace Spynet
 {
-    interface SpynetService
+    class SpynetService
     {
+		public uint Id;
+
+		public SpynetService (uint id)
+		{
+			Id = id;
+		}
     }
 }

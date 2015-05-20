@@ -5,6 +5,16 @@ namespace Spynet
 {
     class SpynetModuleManager
     {
+		public static SpynetModuleManager Instance;
+
+		static SpynetModuleManager ()
+		{
+			Instance = new SpynetModuleManager ();
+			Instance.Register (new SpynetLuaModule ());
+		}
+
+
+
         private Dictionary<string, SpynetModule> mModules;
 
         public SpynetModuleManager ()
@@ -16,5 +26,12 @@ namespace Spynet
         {
             mModules.Add (m.Name (), m);
         }
+
+		public SpynetModule GetModule (string name)
+		{
+			if (mModules.ContainsKey (name))
+				return mModules[name];
+			return null;
+		}
     }
 }

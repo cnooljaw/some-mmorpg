@@ -5,8 +5,8 @@ namespace Spynet
     interface SpynetModule
     {
         string Name ();
-        void Create ();
+		object Create ();
         void Destroy ();
-        void Init ();
+		bool Init (object instance, SpynetService service, string arg);
     }
 }

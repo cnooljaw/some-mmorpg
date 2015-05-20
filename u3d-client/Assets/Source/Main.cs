@@ -1,5 +1,4 @@
 ﻿using System;
-using Spynet;
 
 class Main
 {

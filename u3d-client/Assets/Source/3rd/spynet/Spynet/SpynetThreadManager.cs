@@ -3,8 +3,18 @@
 namespace Spynet
 {
     class SpynetThreadManager
-    {
-        public void Run ()
+	{
+		public static SpynetThreadManager Instance;
+		
+		static SpynetThreadManager ()
+		{
+			Instance = new SpynetThreadManager ();
+		}
+		
+		
+		
+
+		public void Start ()
         {
         }
     }
