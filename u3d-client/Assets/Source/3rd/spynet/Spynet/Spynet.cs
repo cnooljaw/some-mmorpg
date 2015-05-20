@@ -4,24 +4,25 @@ namespace Spynet
 {
     class Spynet
     {
-		private static Spynet sInstance;
+        private SpynetModuleManager mModuleManager;
+        private SpynetMessageManager mMessageManager;
+        private SpynetThreadManager mThreadManager;
     	private SpynetServiceManager mServiceManager;
 
-		static Spynet ()
-		{
-			sInstance = new Spynet ();
-		}
-
-		private void Run (string file)
-		{
-			mServiceManager = new SpynetServiceManager ();
-			var service = new SpynetLuaService (file);
-			mServiceManager.AddService (service);
-		}
-
-        public static void Start(string file)
+        public Spynet()
         {
-			sInstance.Run (file);
+            mModuleManager.Register (new SpynetLuaModule ());
         }
+
+        public void Start (string module, string file)
+		{
+            mMessageManager = new SpynetMessageManager();
+
+			mServiceManager = new SpynetServiceManager ();
+            mServiceManager.AddService (module, file);
+
+            mThreadManager = new SpynetThreadManager();
+            mThreadManager.Run();
+		}
     }
 }

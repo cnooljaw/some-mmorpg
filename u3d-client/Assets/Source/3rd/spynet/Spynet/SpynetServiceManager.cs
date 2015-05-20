@@ -4,7 +4,7 @@ namespace Spynet
 {
     class SpynetServiceManager
     {
-        public void AddService(SpynetService service)
+        public void AddService (string module, string file)
         {
         }
     }

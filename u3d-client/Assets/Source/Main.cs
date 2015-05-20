@@ -5,6 +5,6 @@ class Main
 {
     static void Start()
     {
-		Spynet.Spynet.Start ("main.lua");
+		Spynet.Spynet.Start ("snlua", "main.lua");
     }
 }
