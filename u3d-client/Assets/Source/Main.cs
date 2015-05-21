@@ -1,9 +1,11 @@
 ﻿using System;
+using Spynet;
 
 class Main
 {
     static void Start()
     {
-        Spynet.Spynet.Start ("SpynetConfig");
+		SpynetConfig config = new SpynetConfig ();
+		Spynet.Spynet.Start (config);
     }
 }

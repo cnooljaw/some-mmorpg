@@ -16,15 +16,35 @@ namespace Spynet
 		
 
 		private Dictionary<uint, SpynetService> mServices;
-		private uint mAvailableId;
+		private uint mNextTryHandle;
 
 		public SpynetServiceManager ()
 		{
 			mServices = new Dictionary<uint, SpynetService> ();
-			mAvailableId = 1;
+			mNextTryHandle = 1;
 		}
 
-        public void AddService (string cmd)
+		private uint FindFreeHandle ()
+		{
+			lock (this)
+			{
+				while (mNextTryHandle == 0 || mServices.ContainsKey (mNextTryHandle))
+				{
+					mNextTryHandle++;
+				}
+				return mNextTryHandle;
+			}
+		}
+
+		private void AddService (SpynetService service)
+		{
+			lock (this)
+			{
+				mServices.Add (service.Handle, service);
+			}
+		}
+
+		public void NewService (string cmd)
         {
             string[] words = cmd.Split (' ');
             string module = words[0];
@@ -34,25 +54,13 @@ namespace Spynet
 			if (m == null)
 				return;
 
-			object instance = m.Create ();
-
-			lock (this)
+			uint handle = FindFreeHandle ();
+			SpynetService service = new SpynetService(handle);
+			bool ok = service.Init (m, arg);
+			if (ok)
 			{
-				while (mServices.ContainsKey (mAvailableId))
-				{
-					mAvailableId++;
-				}
-
-				SpynetService service = new SpynetService(mAvailableId);
-				bool ok = m.Init (instance, service, arg);
-				if (ok)
-				{
-					mServices.Add (service.Id, service);
-					SpynetMessageManager.Instance.Push (service);
-				}
-				else
-				{
-				}
+				AddService (service);
+				SpynetMessageManager.Instance.Push (service);
 			}
         }
 

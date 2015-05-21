@@ -4,11 +4,28 @@ namespace Spynet
 {
     class SpynetService
     {
-		public uint Id;
+		public uint Handle;
+		public delegate void DispatchCallbackFunc ();
 
-		public SpynetService (uint id)
+		private DispatchCallbackFunc mCallback;
+		private object mCallbackData;
+
+		public SpynetService (uint handle)
 		{
-			Id = id;
+			Handle = handle;
+		}
+
+		public bool Init (SpynetModule module, string arg)
+		{
+			object instance = module.Create ();
+			bool ok = module.Init (instance, this, arg);
+			return ok;
+		}
+
+		public void SetCallback (DispatchCallbackFunc func, object ud)
+		{
+			mCallback = func;
+			mCallbackData = ud;
 		}
 
         public bool Dispatch ()

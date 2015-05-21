@@ -47,13 +47,16 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Source\3rd\spynet\Spynet\Spynet.cs" />
+     <Compile Include="Assets\Source\3rd\spynet\Spynet\SpynetConfig.cs" />
      <Compile Include="Assets\Source\3rd\spynet\Spynet\SpynetLuaModule.cs" />
+     <Compile Include="Assets\Source\3rd\spynet\Spynet\SpynetMessage.cs" />
      <Compile Include="Assets\Source\3rd\spynet\Spynet\SpynetMessageManager.cs" />
      <Compile Include="Assets\Source\3rd\spynet\Spynet\SpynetModule.cs" />
      <Compile Include="Assets\Source\3rd\spynet\Spynet\SpynetModuleManager.cs" />
      <Compile Include="Assets\Source\3rd\spynet\Spynet\SpynetService.cs" />
      <Compile Include="Assets\Source\3rd\spynet\Spynet\SpynetServiceManager.cs" />
      <Compile Include="Assets\Source\3rd\spynet\Spynet\SpynetThreadManager.cs" />
+     <Compile Include="Assets\Source\3rd\spynet\Spynet\SpynetTimeManager.cs" />
      <Compile Include="Assets\Source\3rd\spynet\UniLua\ByteString.cs" />
      <Compile Include="Assets\Source\3rd\spynet\UniLua\Coder.cs" />
      <Compile Include="Assets\Source\3rd\spynet\UniLua\Common.cs" />

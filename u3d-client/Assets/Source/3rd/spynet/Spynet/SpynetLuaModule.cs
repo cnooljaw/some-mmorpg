@@ -26,8 +26,13 @@ namespace Spynet
         {
         }
 
+		public void Dispatch ()
+		{
+		}
+
 		public bool Init (object instance, SpynetService service, string arg)
         {
+			service.SetCallback (Dispatch, instance);
 			return true;
         }
 

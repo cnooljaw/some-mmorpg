@@ -42,7 +42,7 @@ namespace UniLua
 		public FileLoadInfo( FileStream stream )
 		{
 			Stream = stream;
-      Reader = new StreamReader(Stream, System.Text.Encoding.UTF8);
+      		Reader = new StreamReader(Stream, System.Text.Encoding.UTF8);
 			Buf = new Queue<char>();
 		}
 
@@ -70,7 +70,7 @@ namespace UniLua
 
 		public void Dispose()
 		{
-      Reader.Dispose();
+      		Reader.Dispose();
 			Stream.Dispose();
 		}
 

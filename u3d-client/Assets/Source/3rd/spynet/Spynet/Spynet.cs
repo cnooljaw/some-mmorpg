@@ -4,14 +4,9 @@ namespace Spynet
 {
     class Spynet
     {
-        public static void Start (string c)
+		public static void Start (SpynetConfig config)
 		{
-            SpynetConfig config = new SpynetConfig ();
-            config.Load (c);
-
-            SpynetServiceManager.Instance.AddService (config.Bootstrap);
-            SpynetServiceManager.Instance.AddService (config.Start);
-
+            SpynetServiceManager.Instance.NewService (config.Start);
             SpynetThreadManager.Instance.Start (config.Thread);
 		}
     }
