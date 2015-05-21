@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Spynet
 {
@@ -10,16 +11,42 @@ namespace Spynet
 		{
 			Instance = new SpynetMessageManager ();
 		}
-		
-		
-		
 
-        public void Run ()
+
+
+
+        Queue<SpynetService> mServiceQueue;
+
+        public SpynetMessageManager ()
         {
+            mServiceQueue = new Queue<SpynetService> ();
+        }
+
+        public bool Dispatch ()
+        {
+            SpynetService service = null;
+            lock (mServiceQueue)
+            {
+                if (mServiceQueue.Count == 0)
+                    return false;
+
+                service = mServiceQueue.Dequeue ();
+            }
+
+            if (service.Dispatch ())
+            {
+                Push (service);
+            }
+
+            return true;
         }
 
 		public void Push (SpynetService service)
 		{
+            lock (mServiceQueue)
+            {
+                mServiceQueue.Enqueue (service);
+            }
 		}
     }
 }

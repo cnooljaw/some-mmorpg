@@ -24,8 +24,12 @@ namespace Spynet
 			mAvailableId = 1;
 		}
 
-        public void AddService (string module, string arg)
+        public void AddService (string cmd)
         {
+            string[] words = cmd.Split (' ');
+            string module = words[0];
+            string arg = words[1];
+
 			SpynetModule m = SpynetModuleManager.Instance.GetModule (module);
 			if (m == null)
 				return;
@@ -50,6 +54,11 @@ namespace Spynet
 				{
 				}
 			}
+        }
+
+        public bool Empty ()
+        {
+            return (mServices.Count == 0);
         }
     }
 }

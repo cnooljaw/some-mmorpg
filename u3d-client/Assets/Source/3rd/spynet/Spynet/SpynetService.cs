@@ -10,5 +10,10 @@ namespace Spynet
 		{
 			Id = id;
 		}
+
+        public bool Dispatch ()
+        {
+            return false;
+        }
     }
 }

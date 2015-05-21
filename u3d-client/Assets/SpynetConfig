@@ -1,0 +1,4 @@
+thread = 2
+start = "snlua main"
+bootstrap = "snlua bootstrap"
+luaservice = root.."service/?.lua;"..root.."test/?.lua;"..root.."examples/?.lua"
