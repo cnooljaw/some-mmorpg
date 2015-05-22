@@ -6,6 +6,8 @@ namespace Spynet
     {
         public string Start;
         public int Thread;
+        public string LuaPath;
+        public string ServicePath;
 
 		public SpynetConfig ()
         {

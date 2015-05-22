@@ -44,6 +44,16 @@ namespace Spynet
 			}
 		}
 
+        private SpynetService GetService (uint handle)
+        {
+            lock (this)
+            {
+                if (mServices.ContainsKey (handle))
+                    return mServices[handle];
+            }
+            return null;
+        }
+
 		public void NewService (string cmd)
         {
             string[] words = cmd.Split (' ');
@@ -60,13 +70,24 @@ namespace Spynet
 			if (ok)
 			{
 				AddService (service);
-				SpynetMessageManager.Instance.Push (service);
+                service.SetActive (true);
 			}
         }
 
         public bool Empty ()
         {
             return (mServices.Count == 0);
+        }
+
+        public void SendMessage (uint src, uint dest, string data)
+        {
+            SpynetMessage message = new SpynetMessage (src, dest, data);
+            SpynetService target = GetService (dest);
+            if (target != null)
+            {
+                target.PushMessage (message);
+                target.SetActive (true);
+            }
         }
     }
 }

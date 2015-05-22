@@ -5,11 +5,14 @@ namespace Spynet
     class SpynetMessage
     {
 		public uint Source;
-        public int Session;
-        public byte[] Data;
+        public uint Destination;
+        public string Data;
 
-        public SpynetMessage ()
+        public SpynetMessage (uint src, uint dest, string data)
 		{
+            Source = src;
+            Destination = dest;
+            Data = data;
 		}
     }
 }

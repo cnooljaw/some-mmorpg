@@ -33,15 +33,13 @@ namespace Spynet
                 service = mServiceQueue.Dequeue ();
             }
 
-            if (service.Dispatch ())
-            {
-                Push (service);
-            }
+            bool more = service.Dispatch ();
+            service.SetActive (more);
 
-            return true;
+            return more;
         }
 
-		public void Push (SpynetService service)
+		public void Active (SpynetService service)
 		{
             lock (mServiceQueue)
             {

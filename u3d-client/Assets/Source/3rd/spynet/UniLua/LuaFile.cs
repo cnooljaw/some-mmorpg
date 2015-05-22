@@ -10,30 +10,51 @@ namespace UniLua
 	public class LuaFile
 	{
 		//private static readonly string LUA_ROOT = System.IO.Path.Combine(Application.streamingAssetsPath, "LuaRoot");
-		private static PathHook pathhook = (s) => Path.Combine(Path.Combine(Application.streamingAssetsPath, "LuaRoot"), s);
-		public static void SetPathHook(PathHook hook) {
-			pathhook = hook;
+		//private static PathHook pathhook = (s) => Path.Combine(Path.Combine(Application.streamingAssetsPath, "LuaRoot"), s);
+        private static List<PathHook> pathhooks;
+        
+        public static LuaFile ()
+        {
+            pathhooks = new List<PathHook> ();
+            AddPathHook ((s) => Path.Combine (Path.Combine (Application.streamingAssetsPath, "LuaRoot"), s));
+        }
+
+        public static void ResetPathHook ()
+        {
+            pathhooks.Clear ();
+        }
+
+		public static void AddPathHook(PathHook hook)
+        {
+            pathhooks.Add (hook);
 		}
 
 		public static FileLoadInfo OpenFile( string filename )
 		{
-			//var path = System.IO.Path.Combine(LUA_ROOT, filename);
-			var path = pathhook(filename);
-			return new FileLoadInfo( File.Open( path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite ) );
+			// var path = System.IO.Path.Combine(LUA_ROOT, filename);
+			// var path = pathhook(filename);
+            return new FileLoadInfo (File.Open (filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 		}
 
-		public static bool Readable( string filename )
+		public static bool Readable(ref string filename )
 		{
 			//var path = System.IO.Path.Combine(LUA_ROOT, filename);
-			var path = pathhook(filename);
-			try {
-				using( var stream = File.Open( path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite ) ) {
-					return true;
-				}
-			}
-			catch( Exception ) {
-				return false;
-			}
+            for (int i = 0; i < pathhooks.Count; i++)
+            {
+                var path = pathhooks[i] (filename);
+                try
+                {
+                    using (var stream = File.Open (path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        filename = path;
+                        return true;
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return false;
 		}
 	}
 

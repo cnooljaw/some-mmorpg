@@ -186,9 +186,9 @@ namespace UniLua
 			return 1;
 		}
 
-		private static bool Readable( string filename )
+		private static bool Readable(ref string filename )
 		{
-			return LuaFile.Readable( filename );
+			return LuaFile.Readable(ref filename );
 		}
 
 		private static bool PushNextTemplate( ILuaState lua,
@@ -221,7 +221,7 @@ namespace UniLua
 				var template = lua.ToString(-1);
 				string filename = template.Replace( LUA_PATH_MARK, name );
 				lua.Remove( -1 ); // remove path template
-				if( Readable( filename ) ) // does file exist and is readable?
+				if( Readable(ref filename ) ) // does file exist and is readable?
 					return filename; // return that file name
 				lua.PushString( string.Format( "\n\tno file '{0}'", filename) );
 				lua.Remove( -2 ); // remove file name

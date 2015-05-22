@@ -26,13 +26,14 @@ namespace Spynet
         {
         }
 
-		public void Dispatch ()
+        public void Dispatch (object ud, SpynetMessage message)
 		{
 		}
 
 		public bool Init (object instance, SpynetService service, string arg)
         {
 			service.SetCallback (Dispatch, instance);
+            service.SendMessage (service.Handle, arg);
 			return true;
         }
 
