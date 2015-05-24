@@ -22,6 +22,7 @@ namespace Spynet
 
 		public bool Init (SpynetModule module, string arg)
 		{
+			Spynet.Log ("SpynetService Init");
 			object instance = module.Create ();
 			bool ok = module.Init (instance, this, arg);
 			return ok;
@@ -46,14 +47,16 @@ namespace Spynet
         }
 
         public void SendMessage (uint dest, string data)
-        {
+		{
+			Spynet.Log ("SpynetService SendMessage from " + Handle + " to " + dest + " : " + data);
             SpynetServiceManager.Instance.SendMessage (Handle, dest, data);
         }
 
         public void PushMessage (SpynetMessage message)
         {
             lock (mMessageQueue)
-            {
+			{
+				Spynet.Log ("SpynetService PushMessage");
                 mMessageQueue.Enqueue (message);
             }
         }
@@ -64,7 +67,8 @@ namespace Spynet
             {
                 if (mMessageQueue.Count == 0)
                     return false;
-
+				
+				Spynet.Log ("SpynetService Dispatch");
                 SpynetMessage message = mMessageQueue.Dequeue ();
                 if (mCallback != null)
                 {

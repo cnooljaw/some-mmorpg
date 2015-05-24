@@ -461,6 +461,7 @@ namespace UniLua
 			API.PushString( "@" + filename );
 			try
 			{
+				LuaFile.Readable(ref filename );
 				using( var loadinfo = LuaFile.OpenFile( filename ) )
 				{
 					loadinfo.SkipComment();

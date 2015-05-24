@@ -13,10 +13,9 @@ namespace UniLua
 		//private static PathHook pathhook = (s) => Path.Combine(Path.Combine(Application.streamingAssetsPath, "LuaRoot"), s);
         private static List<PathHook> pathhooks;
         
-        public static LuaFile ()
+        static LuaFile ()
         {
             pathhooks = new List<PathHook> ();
-            AddPathHook ((s) => Path.Combine (Path.Combine (Application.streamingAssetsPath, "LuaRoot"), s));
         }
 
         public static void ResetPathHook ()

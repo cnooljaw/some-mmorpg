@@ -34,8 +34,10 @@ namespace Spynet
             }
         }
 
-        public void Start (int thread)
+        public void Start ()
         {
+			int thread = SpynetConfig.Instance.Thread;
+
             mWorkerThreads = new Thread[thread];
             for (int i = 0; i < thread; i++)
             {

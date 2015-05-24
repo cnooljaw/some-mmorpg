@@ -24,6 +24,7 @@ namespace Spynet
 
         public void Register (SpynetModule m)
         {
+			Spynet.Log ("Register Module " + m.Name ());
             mModules.Add (m.Name (), m);
         }
 

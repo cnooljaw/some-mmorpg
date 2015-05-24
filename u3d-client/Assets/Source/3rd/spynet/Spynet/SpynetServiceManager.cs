@@ -40,6 +40,7 @@ namespace Spynet
 		{
 			lock (this)
 			{
+				Spynet.Log ("SpynetServiceManager AddService " + service.Handle);
 				mServices.Add (service.Handle, service);
 			}
 		}
@@ -59,6 +60,8 @@ namespace Spynet
             string[] words = cmd.Split (' ');
             string module = words[0];
             string arg = words[1];
+			
+			Spynet.Log ("SpynetServiceManager NewService : " + module + ", " + arg);
 
 			SpynetModule m = SpynetModuleManager.Instance.GetModule (module);
 			if (m == null)
@@ -66,10 +69,11 @@ namespace Spynet
 
 			uint handle = FindFreeHandle ();
 			SpynetService service = new SpynetService(handle);
+			AddService (service);
+
 			bool ok = service.Init (m, arg);
 			if (ok)
 			{
-				AddService (service);
                 service.SetActive (true);
 			}
         }

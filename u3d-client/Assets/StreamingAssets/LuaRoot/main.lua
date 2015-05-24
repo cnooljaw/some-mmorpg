@@ -1,6 +1,6 @@
-local spynet = require "spynet"
+-- local spynet = require "spynet"
 
-spynet.start (function ()
+-- spynet.start (function ()
 	print("main.lua")
 	--spynet.newservice ("login")
-end)
+-- end)
