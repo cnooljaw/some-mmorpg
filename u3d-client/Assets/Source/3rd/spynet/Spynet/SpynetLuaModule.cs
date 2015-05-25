@@ -3,9 +3,10 @@ using UniLua;
 
 namespace Spynet
 {
-	class SpynetLuaModule : SpynetModule
+    public class SpynetLuaModule : SpynetModule
     {
     	private ILuaState mLuaState;
+        private SpynetService mService;
 
         public string Name ()
         {
@@ -19,6 +20,7 @@ namespace Spynet
 
 			instance.mLuaState = LuaAPI.NewState ();
 			instance.mLuaState.L_OpenLibs ();
+            instance.mLuaState.L_RequireF (SpynetCore.LIB_NAME, SpynetCore.OpenLib, false);
 
 			return instance;
         }
@@ -35,7 +37,7 @@ namespace Spynet
 			Spynet.Log (instance.mLuaState);
 			
 			Spynet.Log ("SpynetLuaModule set context");
-			instance.mLuaState.PushLightUserData (instance);
+            instance.mLuaState.PushLightUserData (instance.mService);
 			instance.mLuaState.SetField (LuaDef.LUA_REGISTRYINDEX, "spynet_context");
 			
 			Spynet.Log ("SpynetLuaModule set lua path");
@@ -55,9 +57,12 @@ namespace Spynet
 			Spynet.Log (r);
 		}
 
-		public bool Init (object instance, SpynetService service, string arg)
+		public bool Init (object ud, SpynetService service, string arg)
 		{
 			Spynet.Log ("SpynetLuaModule Init : " + arg);
+
+            SpynetLuaModule instance = (SpynetLuaModule)ud;
+            instance.mService = service;
 			service.SetCallback (Dispatch, instance);
             service.SendMessage (service.Handle, arg);
 			return true;

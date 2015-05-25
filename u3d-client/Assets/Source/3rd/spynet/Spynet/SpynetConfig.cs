@@ -2,7 +2,7 @@
 
 namespace Spynet
 {
-    class SpynetConfig
+    public class SpynetConfig
 	{
 		public static SpynetConfig Instance;
 		

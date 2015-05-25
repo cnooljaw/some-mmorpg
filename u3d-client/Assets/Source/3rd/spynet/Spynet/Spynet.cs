@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Spynet
 {
-    class Spynet
+    public class Spynet
     {
 		public static void Start ()
 		{

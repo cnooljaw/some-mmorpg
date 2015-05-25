@@ -2,7 +2,7 @@
 
 namespace Spynet
 {
-    interface SpynetModule
+    public interface SpynetModule
     {
         string Name ();
 		object Create ();

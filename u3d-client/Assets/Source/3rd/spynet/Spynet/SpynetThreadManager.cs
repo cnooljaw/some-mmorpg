@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Spynet
 {
-    class SpynetThreadManager
+    public class SpynetThreadManager
 	{
 		public static SpynetThreadManager Instance;
 		

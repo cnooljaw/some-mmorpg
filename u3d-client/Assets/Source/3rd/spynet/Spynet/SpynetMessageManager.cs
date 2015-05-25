@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Spynet
 {
-    class SpynetMessageManager
+    public class SpynetMessageManager
 	{
 		public static SpynetMessageManager Instance;
 		

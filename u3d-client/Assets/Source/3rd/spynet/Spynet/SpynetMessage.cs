@@ -2,7 +2,7 @@
 
 namespace Spynet
 {
-    class SpynetMessage
+    public class SpynetMessage
     {
 		public uint Source;
         public uint Destination;

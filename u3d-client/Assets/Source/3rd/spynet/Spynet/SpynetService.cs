@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Spynet
 {
-    class SpynetService
+    public class SpynetService
     {
 		public uint Handle;
 		public delegate void DispatchCallbackFunc (object ud, SpynetMessage message);
